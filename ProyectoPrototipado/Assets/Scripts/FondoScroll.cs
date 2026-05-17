@@ -3,6 +3,8 @@ using UnityEngine;
 public class FondoScroll : MonoBehaviour
 {
     public float velocidad = 0.2f;
+    public float thrust = 0.5f;
+
     public Renderer bgRender;
 
     bool juego = true;
@@ -17,7 +19,17 @@ public class FondoScroll : MonoBehaviour
     {
         if (juego)
         {
-            bgRender.material.mainTextureOffset += new Vector2(velocidad * Time.deltaTime, 0);
+
+            float inputX = Input.GetAxis("Horizontal");
+            float velocidadFinal = velocidad;
+
+            if(inputX > 0)
+            {
+                velocidadFinal += inputX * thrust;
+            }
+
+
+            bgRender.material.mainTextureOffset += new Vector2(velocidadFinal * Time.deltaTime, 0);
         }
        
     }
