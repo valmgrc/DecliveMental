@@ -1,32 +1,75 @@
 using UnityEngine;
 
-public class EsfingeAttack : MonoBehaviour
+public class EnemyShooter : MonoBehaviour
 {
-    public Sprite balaEnemigo;
+    public float velocidad = 3f;
+
+    public GameObject balaEnemigo;
     public Transform bulletPos;
+    public float tiempoDisparo = 2f;
+    float timer;
 
-    public float timer;
+    Rigidbody2D rb;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    Transform target;
+
+    void Awake()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
+    void Start()
+    {
+        target = GameObject.Find("Bruja").transform;
+    }
+
     void Update()
     {
         timer += Time.deltaTime;
 
-        if(timer > 2)
+        if (target != null)
         {
-            timer = 0;
-            shoot();
+            float diferenciaY = Mathf.Abs(target.position.y - transform.position.y);
+
+            if (diferenciaY < 0.5f)
+            {
+                if (timer > tiempoDisparo)
+                {
+                    timer = 0;
+                    Shoot();
+                }
+            }
+        }
+
+        if (transform.position.x < -10)
+        {
+            Destroy(gameObject);
         }
     }
 
-    void shoot()
+    void FixedUpdate()
     {
-        Instantiate(balaEnemigo, bulletPos.position, Quaternion.identity);
+
+        rb.linearVelocity = Vector2.left * velocidad;
+    }
+
+    void Shoot()
+    {
+        BalaController bala = Instantiate(balaEnemigo, bulletPos.position, Quaternion.identity).GetComponent<BalaController>();
+
+        bala.balaJugador = false;
+        bala.direccion = Vector2.left;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        BalaController bala = collision.GetComponent<BalaController>();
+
+        if (bala != null && bala.balaJugador)
+        {
+            Destroy(gameObject);
+        }
     }
 }
+    
+

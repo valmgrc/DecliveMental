@@ -1,16 +1,48 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public GameObject[] enemigos;
+
+    public float minTiempo = 6f;
+    public float maxTiempo = 9f;
+
+    public float minY = -4f;
+    public float maxY = 4f;
+
+    public float spawnX = 10f;
+
     void Start()
     {
-        
+        StartCoroutine(Spawner());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator Spawner()
     {
-        
+        while (true)
+        {
+            SpawnEnemigos();
+
+            float tiempo = Random.Range(minTiempo, maxTiempo);
+            yield return new WaitForSeconds(tiempo);
+        }
+    }
+
+    void SpawnEnemigos()
+    {
+        int cantidad = Random.Range(1, 3); 
+
+        for (int i = 0; i < cantidad; i++)
+        {
+            GameObject enemigo = enemigos[Random.Range(0, enemigos.Length)];
+
+            float randomY = Random.Range(minY, maxY);
+
+            Vector2 spawnPos = new Vector2(spawnX, randomY);
+
+            Instantiate(enemigo, new Vector3(spawnX, randomY, 0f), Quaternion.identity);
+        }
     }
 }

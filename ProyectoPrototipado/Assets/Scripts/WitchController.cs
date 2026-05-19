@@ -22,16 +22,24 @@ public class WitchController : MonoBehaviour
         float velocidadX = Input.GetAxis("Horizontal") * Time.deltaTime * velocidad;
         float velocidadY = Input.GetAxis("Vertical") * Time.deltaTime * velocidad;
 
-        Vector3 position = transform.position;
+        transform.position += new Vector3(velocidadX, velocidadY, 0);
 
-        transform.position = new Vector3(velocidadX + position.x, velocidadY + position.y, position.z);
+        //Vector3 position = transform.position;
+
+        //transform.position = new Vector3(velocidadX + position.x, velocidadY + position.y, position.z);
 
         //bala
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("bala");
-            Instantiate(balaPrefab,transform.position, Quaternion.identity);
+
+            GameObject b = Instantiate(balaPrefab, transform.position, Quaternion.identity);
+
+            BalaController bala = b.GetComponent<BalaController>();
+
+            bala.balaJugador = true;
+            bala.direccion = Vector2.right;
+
         }
     }
 }

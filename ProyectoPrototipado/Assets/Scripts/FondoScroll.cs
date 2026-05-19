@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class FondoScroll : MonoBehaviour
 {
-    public float velocidad = 0.2f;
-    public float thrust = 0.5f;
+    public float velocidad = 0.1f;
+    public float thrust = 0.2f;
 
     public Renderer bgRender;
 
