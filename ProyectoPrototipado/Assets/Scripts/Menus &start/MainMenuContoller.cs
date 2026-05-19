@@ -7,6 +7,7 @@ public class MainMenuContoller : MonoBehaviour
 {
     [Header("Paneles")]
     public CanvasGroup OptionsPan;
+    [SerializeField] private CanvasGroup aboutUs;
 
     [Header("Configuración de Audio")]
     public Slider volumeSlider;
@@ -23,6 +24,7 @@ public class MainMenuContoller : MonoBehaviour
     private void Start()
     {
         OcultarAjustes();
+        OcultarAbout();
 
         if (volumeSlider != null)
         {
@@ -58,7 +60,7 @@ public class MainMenuContoller : MonoBehaviour
 
     public void Settings()
     {
-        Debug.Log("Abriendo panel de ajustes...");
+        Debug.Log("panelcillo");
         if (OptionsPan != null)
         {
             OptionsPan.alpha = 1;
@@ -72,6 +74,7 @@ public class MainMenuContoller : MonoBehaviour
         if (OptionsPan != null)
         {
             OptionsPan.alpha = 0;
+            OptionsPan.interactable = false;
             OptionsPan.interactable = false;
             OptionsPan.blocksRaycasts = false;
         }
@@ -92,7 +95,26 @@ public class MainMenuContoller : MonoBehaviour
             }
         }
     }
+    public void About()
+    {
+        Debug.Log("us");
+        if (aboutUs != null)
+        {
+            aboutUs.alpha = 1;
+            aboutUs.interactable = true;
+            aboutUs.blocksRaycasts = true;
+        }
 
+    }
+    public void OcultarAbout()
+    {
+        if (aboutUs != null)
+        {
+            aboutUs.alpha = 0;
+            aboutUs.interactable = false;
+            aboutUs.blocksRaycasts = false;
+        }
+    }
     public void QuitGame()
     {
         Debug.Log("Saliendo del juego...");
