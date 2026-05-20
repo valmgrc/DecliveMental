@@ -5,6 +5,10 @@ using TMPro;           // Necesario para controlar el tamaño de la letra
 
 public class MainMenuContoller : MonoBehaviour
 {
+    [Header ("Audio Control")]
+
+    private AudioSource musicaMenu;
+
     [Header("Paneles")]
     public CanvasGroup OptionsPan;
     [SerializeField] private CanvasGroup aboutUs;
@@ -25,6 +29,12 @@ public class MainMenuContoller : MonoBehaviour
     {
         OcultarAjustes();
         OcultarAbout();
+
+        GameObject audioObj = GameObject.Find("musicaMenu");
+        if (audioObj != null)
+        {
+            musicaMenu = audioObj.GetComponent<AudioSource>();
+        }
 
         if (volumeSlider != null)
         {

@@ -6,8 +6,8 @@ using TMPro;
 
 public class SceneLoader : MonoBehaviour
 {
-    // CALL
     public static SceneLoader Instance { get; private set; }
+    public AudioSource audioDeCarga;
 
     [Header("UI Componentes")]
     [SerializeField] private CanvasGroup loadingPanel;
@@ -17,11 +17,10 @@ public class SceneLoader : MonoBehaviour
 
     private void Awake()
     {
-        // SINGLETON
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); 
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -29,11 +28,12 @@ public class SceneLoader : MonoBehaviour
             return;
         }
 
-       
+        // --- NUEVO: Aseguramos que el audio empiece apagado ---
+        if (audioDeCarga != null) audioDeCarga.Stop();
+
         OcultarPantallaCarga();
     }
 
-    // Esta es la función mágica que llamarás desde CUALQUIER script
     public void CargarEscena(string nombreEscena)
     {
         StartCoroutine(CargarAsincronamente(nombreEscena));
@@ -41,7 +41,6 @@ public class SceneLoader : MonoBehaviour
 
     private IEnumerator CargarAsincronamente(string nombreEscena)
     {
-        // 1. Encendemos el panel de carga
         if (loadingPanel != null)
         {
             loadingPanel.alpha = 1;
@@ -49,39 +48,33 @@ public class SceneLoader : MonoBehaviour
             loadingPanel.blocksRaycasts = true;
         }
 
+        // Ahora sí, encendemos el audio solo cuando empieza la carga
+        if (audioDeCarga != null) audioDeCarga.Play();
+
         if (loadingBar != null) loadingBar.value = 0;
         if (progressText != null) progressText.text = "0%";
-        
+
         if (animacionSprite != null)
         {
             animacionSprite.alpha = 1;
         }
 
-
         yield return new WaitForSecondsRealtime(0.1f);
 
-      
         AsyncOperation operacion = SceneManager.LoadSceneAsync(nombreEscena);
 
-        
         while (!operacion.isDone)
         {
             float progresoClampeado = Mathf.Clamp01(operacion.progress / 0.9f);
 
-            if (loadingBar != null)
-            {
-                loadingBar.value = progresoClampeado;
-            }
-
-            if (progressText != null)
-            {
-                progressText.text = (progresoClampeado * 100f).ToString("F0") + "%";
-            }
+            if (loadingBar != null) loadingBar.value = progresoClampeado;
+            if (progressText != null) progressText.text = (progresoClampeado * 100f).ToString("F0") + "%";
 
             yield return null;
         }
 
-        if (animacionSprite != null) animacionSprite.alpha = 1;
+        // Detenemos el audio al terminar
+        if (audioDeCarga != null) audioDeCarga.Stop();
 
         OcultarPantallaCarga();
     }
@@ -95,7 +88,6 @@ public class SceneLoader : MonoBehaviour
             loadingPanel.blocksRaycasts = false;
         }
 
-        //bruja
         if (animacionSprite != null)
         {
             animacionSprite.alpha = 0;
