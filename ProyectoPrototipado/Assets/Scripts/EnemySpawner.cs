@@ -6,8 +6,8 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject[] enemigos;
 
-    public float minTiempo = 3f; //tiempo minimo y maximo en el que spawnean los enemigos 
-    public float maxTiempo = 5f;
+    public float minTiempo = 1f; //tiempo minimo y maximo en el que spawnean los enemigos 
+    public float maxTiempo = 3f;
 
     public float minY = -5f; //Rango del eje y en donde pueden aparecer
     public float maxY = -1f;
@@ -28,8 +28,8 @@ public class EnemySpawner : MonoBehaviour
    
         tiempoJuego += Time.deltaTime; //Va aumentando el tiempo por ende la dificultad o cantidad de enemigos
 
-        minTiempo = Mathf.Clamp(3f - tiempoJuego * 0.05f, 0.8f, 3f); //se asigna que comience lento para despues ir rapido, el mathf lo que hace es asignar un valor minimo y maximo y que no se salga de esos valores
-        maxTiempo = Mathf.Clamp(5f - tiempoJuego * 0.05f, 1.5f, 5f);
+        minTiempo = Mathf.Clamp(3f - tiempoJuego * 0.05f, 0.8f, 1f); //se asigna que comience lento para despues ir rapido, el mathf lo que hace es asignar un valor minimo y maximo y que no se salga de esos valores
+        maxTiempo = Mathf.Clamp(5f - tiempoJuego * 0.05f, 1.5f, 3f);
     }
 
     IEnumerator Spawner()

@@ -84,7 +84,7 @@ public class DragonChaser : MonoBehaviour
             {
                 GameManager.instance.SumarPuntos(puntosRecolectados); //y aqui se llama a la variable y al instance del GameManager
                 Destroy(gameObject);
-                Destroy(bala.gameObject);
+                //Destroy(bala.gameObject);
         }
         }
     }
