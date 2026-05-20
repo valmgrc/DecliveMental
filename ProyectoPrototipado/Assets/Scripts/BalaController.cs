@@ -29,21 +29,21 @@ public class BalaController : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (!balaJugador && collision.CompareTag("Player")) //se asigna que si la bala que se disparó es de un enemigo y mata al jugador
+        if (!balaJugador && collision.CompareTag("Player"))
         {
             GameManager.instance.vidasRestantes();
 
-            if (GameManager.instance.vidas > 0)
+            WitchController player = collision.GetComponent<WitchController>();
+
+            if (player != null)
             {
-                collision.GetComponent<WitchController>().Revivir(); //Se mueve el personaje a la posicion inicial
+                player.Revivir();
             }
-            else
-            {
-                //se muere el jugador
-                Destroy(gameObject);
-            }
-           
+
+            Destroy(gameObject); // destruye la bala
         }
+
+
 
         if (collision.CompareTag("boundary")) //se asigna que si choca con los bordes (Un panel con collider) Se destruye todo lo que lo toque como balas o enemigos
         {
@@ -51,9 +51,8 @@ public class BalaController : MonoBehaviour
         }
     }
 
-    public void Revivir()
-    {
-        transform.position = new Vector3(-368f, -33f, 0f);
-    }
+    
 
 }
+}
+

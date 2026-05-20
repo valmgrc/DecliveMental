@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour
     public int vidas = 3; //Se declara la variable de cuantas vidas/intentos tenemos
     public TextMeshProUGUI textoPuntaje;
 
+
+    public GameObject panelPerder;
+    public GameObject panelGanar;
+
     void Awake()
     {
         if (instance == null)
@@ -35,12 +39,20 @@ public class GameManager : MonoBehaviour
         puntos += cantidad;
         textoPuntaje.text = "" + puntos; //aqui ya se asigna para que vaya sumando la cantidad
 
-        if (puntos >= puntosNivel) //aqui se asigna que la cantidad de puntos al ser los mismos ya pasas de nivel
+        if (puntos >= puntosNivel)
         {
-            SiguienteNivel();
+            if (SceneManager.GetActiveScene().name == "JuegoNivel1") //aqui se asigna que si cumples los puntos requeridos pero estas en la escena del nivel 1, te lleva a la siguiente
+            {
+                SiguienteNivel();
+            }
+            else
+            {
+                Ganar(); 
+            }
         }
 
     }
+
 
     public void vidasRestantes()
     {
@@ -48,7 +60,7 @@ public class GameManager : MonoBehaviour
 
         if (vidas <= 0)
         {
-            //SceneManager.LoadScene("escenadeperderlol");
+            Perder();
         }
     }
 
@@ -57,13 +69,21 @@ public class GameManager : MonoBehaviour
       SceneManager.LoadScene("JuegoNivel2");
     }
 
-    void Ganar() //metodo para cambiar de escena solo cuando ganas el nivel
+  
+    void Perder()
     {
-        SceneManager.LoadScene("JuegoNivel2");
+        Time.timeScale = 0f; //detiene el juego
+
+        if (panelPerder != null)
+            panelPerder.SetActive(true);
     }
 
-    void Perder() //metodo para cambiar de escena solo cuando ganas el nivel
+    void Ganar()
     {
-        SceneManager.LoadScene("JuegoNivel2");
+        Time.timeScale = 0f; // ❄️ congela juego
+
+        if (panelGanar != null)
+            panelGanar.SetActive(true);
     }
+
 }

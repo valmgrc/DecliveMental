@@ -23,7 +23,12 @@ public class HadaAttack : MonoBehaviour
 
     void Start()
     {
-        target = GameObject.Find("Bruja").transform;
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+
+        if (playerObj != null)
+        {
+            target = playerObj.transform;
+        }
     }
 
     void Update()

@@ -13,7 +13,13 @@ public class DuendeJump : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.Find("Bruja").transform;
+       
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+
+        if (playerObj != null)
+        {
+            player = playerObj.transform;
+        }
         anim = GetComponent<Animator>();
     }
 
@@ -34,8 +40,15 @@ public class DuendeJump : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            GameManager.instance.vidasRestantes();
 
-            Destroy(collision.gameObject);
+            WitchController player = collision.GetComponent<WitchController>();
+
+            if (player != null)
+            {
+                player.Revivir();
+            }
+
             Destroy(gameObject);
         }
 
@@ -46,5 +59,7 @@ public class DuendeJump : MonoBehaviour
             GameManager.instance.SumarPuntos(puntosRecolectados); //y aqui se llama a la variable y al instance del GameManager
             Destroy(gameObject);
         }
+
+
     }
 }

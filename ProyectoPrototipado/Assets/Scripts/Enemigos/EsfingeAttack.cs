@@ -12,6 +12,11 @@ public class EsfingeAttack : MonoBehaviour
     public float tiempoDisparo = 2f; //velocidad del disarpo
     float timer;
 
+    float tiempoPersecucion = 4f;
+    float contador = 0f;
+    bool persiguiendo = true;
+
+
     Rigidbody2D rb;
 
     Transform target; //Se declara objetivo
@@ -23,37 +28,36 @@ public class EsfingeAttack : MonoBehaviour
 
     void Start()
     {
-        target = GameObject.Find("Bruja").transform; //Se asigna el objetivo, el jugador o la bruja
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player"); //Se asigna el objetivo, el jugador o la bruja
+
+        if (playerObj != null)
+        {
+            target = playerObj.transform;
+        } 
     }
 
     void Update()
     {
-        timer += Time.deltaTime;
+        contador += Time.deltaTime;
 
-        if (target != null)
+        if (contador >= tiempoPersecucion)
         {
-            float diferenciaY = Mathf.Abs(target.position.y - transform.position.y);
-
-            if (diferenciaY < 0.5f)
-            {
-                if (timer > tiempoDisparo)
-                {
-                    timer = 0;
-                    Shoot();
-                }
-            }
+            persiguiendo = false;
         }
 
-        if (transform.position.x < -10)
+        if (target != null && persiguiendo)
         {
-            Destroy(gameObject);
+            Vector2 direccion = (target.position - transform.position).normalized;
+            rb.linearVelocity = direccion * velocidad;
         }
     }
 
     void FixedUpdate()
     {
-
-        rb.linearVelocity = Vector2.left * velocidad;
+        if (!persiguiendo)
+        {
+            rb.linearVelocity = Vector2.left * velocidad;
+        }
     }
 
     void Shoot()

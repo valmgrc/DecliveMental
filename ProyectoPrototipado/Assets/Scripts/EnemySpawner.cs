@@ -32,17 +32,25 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemigos()
     {
-        int cantidad = Random.Range(1, 3); 
+        int cantidad = Random.Range(1, 3);
 
         for (int i = 0; i < cantidad; i++)
         {
             GameObject enemigo = enemigos[Random.Range(0, enemigos.Length)];
 
-            float randomY = Random.Range(minY, maxY);
+            float posY;
 
-            Vector2 spawnPos = new Vector2(spawnX, randomY);
+          
+            if (enemigo.GetComponent<DuendeJump>() != null)
+            {
+                posY = -174f; 
+            }
+            else
+            {
+                posY = Random.Range(minY, maxY);
+            }
 
-            Instantiate(enemigo, new Vector3(spawnX, randomY, 0f), Quaternion.identity);
+            Instantiate(enemigo, new Vector3(spawnX, posY, 0f), Quaternion.identity);
         }
     }
 }

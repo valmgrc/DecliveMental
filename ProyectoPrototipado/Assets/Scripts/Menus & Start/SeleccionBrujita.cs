@@ -94,4 +94,9 @@ public class SeleccionBrujita : MonoBehaviour
         if (brujita2 != null) brujita2.SetBool("isSelected", false);
         if (brujita3 != null) brujita3.SetBool("isSelected", false);
     }
+
+    public void Jugar()
+    {
+
+    }
 }
