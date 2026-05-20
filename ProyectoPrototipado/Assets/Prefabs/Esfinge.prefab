@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 4798812268238525676}
   - component: {fileID: 1175860682652642118}
   - component: {fileID: 1348113053721313440}
+  - component: {fileID: 3542099611861440128}
   m_Layer: 0
   m_Name: Esfinge
   m_TagString: Enemigo
@@ -400,6 +401,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidad: 3
+  balaJugador: 0
+  puntosRecolectados: 100
   balaEnemigo: {fileID: 4581971540463247958, guid: 50390d4252510a049bec842560acd884, type: 3}
   bulletPos: {fileID: 8033190434297137196}
   tiempoDisparo: 2
+--- !u!95 &3542099611861440128
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6578428691105689756}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 76c440946db3b3e438c1bd221a0fd668, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

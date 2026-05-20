@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6081224959379010932}
   - component: {fileID: 7521799545272236343}
   - component: {fileID: 9078151784582440429}
+  - component: {fileID: 4773710348529252286}
   m_Layer: 0
   m_Name: "Drag\xF3n"
   m_TagString: Enemigo
@@ -130,6 +131,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidad: 20
+  balaJugador: 0
+  puntosRecolectados: 600
 --- !u!60 &9078151784582440429
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -182,3 +185,25 @@ PolygonCollider2D:
       - {x: 0.58778536, y: -0.80901694}
       - {x: 0.9510565, y: 0.30901712}
   m_UseDelaunayMesh: 0
+--- !u!95 &4773710348529252286
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7275205957309358595}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fc71891d8ec554a489289d9a8ed9eaee, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
