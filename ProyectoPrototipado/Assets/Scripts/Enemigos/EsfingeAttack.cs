@@ -3,7 +3,7 @@ using UnityEngine;
 public class EsfingeAttack : MonoBehaviour
 {
     public float velocidad = 3f;
-
+    public bool balaJugador;
 
     public int puntosRecolectados = 100; //se declara la cantidad de puntos que vale
 
@@ -12,9 +12,7 @@ public class EsfingeAttack : MonoBehaviour
     public float tiempoDisparo = 2f; //velocidad del disarpo
     float timer;
 
-    float tiempoPersecucion = 4f;
-    float contador = 0f;
-    bool persiguiendo = true;
+   
 
 
     Rigidbody2D rb;
@@ -38,26 +36,32 @@ public class EsfingeAttack : MonoBehaviour
 
     void Update()
     {
-        contador += Time.deltaTime;
+        timer += Time.deltaTime;
 
-        if (contador >= tiempoPersecucion)
+        if (target != null)
         {
-            persiguiendo = false;
+            float diferenciaY = Mathf.Abs(target.position.y - transform.position.y);
+
+            if (diferenciaY < 0.5f)
+            {
+                if (timer > tiempoDisparo)
+                {
+                    timer = 0;
+                    Shoot();
+                }
+            }
         }
 
-        if (target != null && persiguiendo)
+        if (transform.position.x < -10)
         {
-            Vector2 direccion = (target.position - transform.position).normalized;
-            rb.linearVelocity = direccion * velocidad;
+            Destroy(gameObject);
         }
     }
 
     void FixedUpdate()
     {
-        if (!persiguiendo)
-        {
-            rb.linearVelocity = Vector2.left * velocidad;
-        }
+
+        rb.linearVelocity = Vector2.left * velocidad;
     }
 
     void Shoot()
@@ -76,6 +80,7 @@ public class EsfingeAttack : MonoBehaviour
         {
             GameManager.instance.SumarPuntos(puntosRecolectados); //y aqui se llama a la variable y al instance del GameManager
             Destroy(gameObject);
+            Destroy(bala.gameObject);
         }
     }
 }

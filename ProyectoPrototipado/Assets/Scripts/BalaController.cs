@@ -8,6 +8,9 @@ public class BalaController : MonoBehaviour
 
     public Vector2 direccion = Vector2.right;
 
+    bool golpea = false;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -23,7 +26,11 @@ public class BalaController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if( balaJugador && collision.gameObject.tag == "Enemigo") //se asigna que si la bala que se disparó es del jugador y le aitnó a un enemigo (tiene que tener el tag)
+        if (golpea) return;
+        golpea = true;
+
+
+        if (balaJugador && collision.gameObject.tag == "Enemigo") //se asigna que si la bala que se disparó es del jugador y le aitnó a un enemigo (tiene que tener el tag)
         {
             Destroy(collision.gameObject); //Se destruye el enemigo
             Destroy(gameObject);
@@ -39,9 +46,15 @@ public class BalaController : MonoBehaviour
             {
                 player.Revivir();
             }
+            else
+            {
+                Destroy(collision.gameObject); //destruye la bala
+            }
 
-            Destroy(gameObject); // destruye la bala
+            Destroy(gameObject);
         }
+
+
 
 
 

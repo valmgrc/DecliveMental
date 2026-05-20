@@ -19,15 +19,18 @@ public class GameManager : MonoBehaviour
     {
         if (instance == null)
         {
-            instance = this; //Guarda el controlador del puntaje para que otros objetos puedan acceder
-            DontDestroyOnLoad(gameObject); //
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
             Destroy(gameObject);
         }
-       
+
     }
+
+
 
     void Start()
     {
@@ -51,6 +54,11 @@ public class GameManager : MonoBehaviour
             }
         }
 
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Time.timeScale = 1f;
     }
 
 
@@ -85,5 +93,7 @@ public class GameManager : MonoBehaviour
         if (panelGanar != null)
             panelGanar.SetActive(true);
     }
+
+   
 
 }

@@ -11,6 +11,10 @@ public class DragonChaser : MonoBehaviour
 
     public bool balaJugador;
 
+    float tiempoPersecucion = 3f;
+    float contador = 0f;
+    bool persiguiendo = true;
+
 
     public int puntosRecolectados = 600; //se declara la cantidad de puntos que vale
 
@@ -32,19 +36,29 @@ public class DragonChaser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (target)
-        {
-            Vector3 direction = (target.position - transform.position).normalized;
-            moveDirection = direction;
 
-            //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            //rb.rotation = angle;  aqui solo girar en x para voltear a ver a usuario
+        contador += Time.deltaTime;
+
+        if (contador >= tiempoPersecucion)
+        {
+            persiguiendo = false;
         }
+
+        if (target != null && persiguiendo)
+        {
+            Vector2 direccion = (target.position - transform.position).normalized;
+            rb.linearVelocity = direccion * velocidad;
+        }
+
+        
     }
 
-    private void FixedUpdate() //se ejecuta en intervalos independientes a diferencia del update que lo llama en cada fotograma
+    void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(moveDirection.x, moveDirection.y) * velocidad;
+        if (!persiguiendo)
+        {
+            rb.linearVelocity = Vector2.left * velocidad;
+        }
     }
 
 
@@ -70,7 +84,8 @@ public class DragonChaser : MonoBehaviour
             {
                 GameManager.instance.SumarPuntos(puntosRecolectados); //y aqui se llama a la variable y al instance del GameManager
                 Destroy(gameObject);
-            }
+                Destroy(bala.gameObject);
+        }
         }
     }
 
