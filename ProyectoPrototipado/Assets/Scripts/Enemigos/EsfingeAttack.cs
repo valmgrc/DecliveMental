@@ -1,17 +1,20 @@
 using UnityEngine;
 
-public class EnemyShooter : MonoBehaviour
+public class EsfingeAttack : MonoBehaviour
 {
     public float velocidad = 3f;
 
-    public GameObject balaEnemigo;
-    public Transform bulletPos;
-    public float tiempoDisparo = 2f;
+
+    public int puntosRecolectados = 100; //se declara la cantidad de puntos que vale
+
+    public GameObject balaEnemigo; //declara bala del enemigo
+    public Transform bulletPos; //declara la posicion de donde saldra la bala para que tenga coherencia que sala de él
+    public float tiempoDisparo = 2f; //velocidad del disarpo
     float timer;
 
     Rigidbody2D rb;
 
-    Transform target;
+    Transform target; //Se declara objetivo
 
     void Awake()
     {
@@ -20,7 +23,7 @@ public class EnemyShooter : MonoBehaviour
 
     void Start()
     {
-        target = GameObject.Find("Bruja").transform;
+        target = GameObject.Find("Bruja").transform; //Se asigna el objetivo, el jugador o la bruja
     }
 
     void Update()
@@ -67,6 +70,7 @@ public class EnemyShooter : MonoBehaviour
 
         if (bala != null && bala.balaJugador)
         {
+            GameManager.instance.SumarPuntos(puntosRecolectados); //y aqui se llama a la variable y al instance del GameManager
             Destroy(gameObject);
         }
     }

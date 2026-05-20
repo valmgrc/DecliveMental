@@ -6,6 +6,8 @@ public class DuendeJump : MonoBehaviour
 
     Transform player;
     Animator anim;
+    public int puntosRecolectados = 350; //se declara la cantidad de puntos que vale
+
 
     bool Salto = false;
 
@@ -41,6 +43,7 @@ public class DuendeJump : MonoBehaviour
 
         if (bala != null && bala.balaJugador)
         {
+            GameManager.instance.SumarPuntos(puntosRecolectados); //y aqui se llama a la variable y al instance del GameManager
             Destroy(gameObject);
         }
     }

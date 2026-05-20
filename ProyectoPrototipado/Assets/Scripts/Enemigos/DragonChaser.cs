@@ -9,7 +9,7 @@ public class DragonChaser : MonoBehaviour
     Transform target;
     Vector2 moveDirection;
 
-
+    public int puntosRecolectados = 600; //se declara la cantidad de puntos que vale
 
     private void Awake()
     {
@@ -34,16 +34,38 @@ public class DragonChaser : MonoBehaviour
             }
     }
 
-        private void FixedUpdate()
+        private void FixedUpdate() //se ejecuta en intervalos independientes a diferencia del update que lo llama en cada fotograma
     {
         rb.linearVelocity = new Vector2(moveDirection.x, moveDirection.y) * velocidad;
     }
 
+ 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
-            Debug.Log("golpeadito");
+            GameManager.instance.vidasRestantes();
+
+            if (GameManager.instance.vidas > 0)
+            {
+                collision.GetComponent<WitchController>().Revivir(); //Se mueve el personaje a la posicion inicial
+            }
+            else
+            {
+                //se muere el jugador
+                Destroy(gameObject);
+            }
+
+           
+        }
+
+        BalaController bala = collision.GetComponent<BalaController>();
+
+        if (bala != null && bala.balaJugador)
+        {
+            GameManager.instance.SumarPuntos(puntosRecolectados); //y aqui se llama a la variable y al instance del GameManager
+            Destroy(gameObject);
         }
     }
 }

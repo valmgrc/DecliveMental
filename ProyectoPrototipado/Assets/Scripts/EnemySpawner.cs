@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public GameObject[] enemigos;
+    public GameObject[] enemigos; //array de los enemigos que hay
 
     public float minTiempo = 6f;
     public float maxTiempo = 9f;

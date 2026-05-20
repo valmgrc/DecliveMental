@@ -28,7 +28,7 @@ public class WitchController : MonoBehaviour
 
         //transform.position = new Vector3(velocidadX + position.x, velocidadY + position.y, position.z);
 
-        //bala
+      
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
