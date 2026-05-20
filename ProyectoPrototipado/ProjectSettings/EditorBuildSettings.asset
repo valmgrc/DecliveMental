@@ -9,11 +9,11 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/Welcome Player screen.unity
-    guid: b79d5ba095436664abb39536e37e1aa0
+    path: Assets/Scenes/Welcome Player screen.unity
+    guid: 941e164f95e93414bafb6e040dd07a6a
   - enabled: 1
-    path: Assets/MainMenu.unity
-    guid: 567874a7ae1dbde4086b52841e837f69
+    path: Assets/Scenes/MainMenu.unity
+    guid: 924b837ffb1164e48b82e0e981159f70
   - enabled: 1
     path: Assets/Scenes/Personalizacion.unity
     guid: a2460ac914849e94b9c09ae55d42922d
